@@ -7,12 +7,15 @@ class patient(models.Model):
     lat = models.DecimalField(max_digits=8, decimal_places=3)
 class doctor(models.Model):
     id=models.IntegerField(primary_key=True)
-    long = models.DecimalField(max_digits=8, decimal_places=3)
-    lat = models.DecimalField(max_digits=8, decimal_places=3)
-    availablity=models.ManyToManyField('date_time',on_delete=models.CASCADE)
+    long = models.DecimalField(max_digits=16, decimal_places=6)
+    lat = models.DecimalField(max_digits=16, decimal_places=6)
+    availablity=models.ManyToManyField('date_time',through='doctor_ava')
+class doctor_ava(models.Model):
+    doctor=models.ForeignKey('doctor',on_delete=models.CASCADE)
+    date_time=models.ForeignKey('date_time',on_delete=models.CASCADE)
 class date_time(models.Model):
-    date=models.DateTimeField()
-    duration=models.DurationField()
+    start_date=models.DateTimeField()
+    end_date=models.DateTimeField()  
 class appointment(models.Model):
     doctor=models.ForeignKey(doctor,on_delete=models.CASCADE)
     appt_date=models.ForeignKey(date_time,on_delete=models.CASCADE)

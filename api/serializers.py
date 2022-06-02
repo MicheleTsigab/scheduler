@@ -4,15 +4,21 @@ class patientserializer(serializers.ModelSerializer):
     class Meta:
         model=patient
         fields='__all__'
-class dateserializer(serializers.ModelSerializer):
+class date_timeserializer(serializers.ModelSerializer):
     class Meta:
         model=date_time
         fields='__all__'
+
 class doctorserializer(serializers.ModelSerializer):
-    availability=dateserializer()
+   # availablity=dateserializer()
     class Meta:
         model=doctor
-        fields=['doctor','availability']
+        fields=['id','long','lat']
+class doctoravaserializer(serializers.ModelSerializer):
+    date_time=date_timeserializer()
+    class Meta:
+        model=doctor_ava
+        fields=['date_time']
 class apptserializer(serializers.ModelSerializer):
     class Meta:
         model=appointment
