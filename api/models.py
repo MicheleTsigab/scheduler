@@ -5,11 +5,13 @@ class patient(models.Model):
     id=models.IntegerField(primary_key=True)
     long = models.DecimalField(max_digits=8, decimal_places=3)
     lat = models.DecimalField(max_digits=8, decimal_places=3)
+    appt=models.ManyToManyField('doctor',through='appointment')
 class doctor(models.Model):
     id=models.IntegerField(primary_key=True)
     long = models.DecimalField(max_digits=16, decimal_places=6)
     lat = models.DecimalField(max_digits=16, decimal_places=6)
     availablity=models.ManyToManyField('date_time',through='doctor_ava')
+    home_appt=models.ManyToManyField('patient',through='home_appointment')
 class doctor_ava(models.Model):
     doctor=models.ForeignKey('doctor',on_delete=models.CASCADE)
     date_time=models.ForeignKey('date_time',on_delete=models.CASCADE)

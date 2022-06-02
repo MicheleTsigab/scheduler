@@ -19,11 +19,27 @@ class doctoravaserializer(serializers.ModelSerializer):
     class Meta:
         model=doctor_ava
         fields=['date_time']
-class apptserializer(serializers.ModelSerializer):
+class docapptserializer(serializers.ModelSerializer):
+    appt_date=date_timeserializer()
+    
     class Meta:
         model=appointment
-        fields=['appt_date','status']
-class homeapptserializer(serializers.ModelSerializer):
+        fields=['appt_date','status','patient']
+class patapptserializer(serializers.ModelSerializer):
+    appt_date=date_timeserializer()
+    
+    class Meta:
+        model=appointment
+        fields=['appt_date','status','doctor']
+class dochomeapptserializer(serializers.ModelSerializer):
+    appt_date=date_timeserializer()
+    patient=patientserializer()
     class Meta:
         model=home_appointment
-        fields=['appt_date','status']
+        fields=['appt_date','status','patient']
+class pathomeapptserializer(serializers.ModelSerializer):
+    appt_date=date_timeserializer()
+    doctor=doctorserializer()
+    class Meta:
+        model=home_appointment
+        fields=['appt_date','status','doctor']
