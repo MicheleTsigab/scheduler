@@ -6,7 +6,15 @@ from rest_framework import status
 from .models import *
 from .serializers import *
 # Create your views here.
+from django.shortcuts import render
 
+from django.http import HttpResponse
+import datetime
+
+def index(request):
+    now = datetime.datetime.now()
+    html = "<html><body><h1>Links</h1><ul><li><a href='http://127.0.0.1:8000/admin'>/admin/</a><ul><li>username: michele password: 1234</li></ul></li><h2>Api Links</h2><li><a href='http://127.0.0.1:8000/doctor'>/doctor/</a></li><li>/doctor/{id}/availablity</li><li>/doctor/{id}/homeappt</li><li>/patient/{id}/homeappt</li><li>/doctor/{id}/appt</li><li>/patient/{id}/appt</li></ul></body></html>"
+    return HttpResponse(html)
 class doctorViewset(viewsets.ModelViewSet):
     serializer_class = doctorserializer
     queryset = doctor.objects.all()
@@ -21,16 +29,6 @@ class docapptViewset(viewsets.ModelViewSet):
     serializer_class=docapptserializer
     def get_queryset(self):
         return appointment.objects.filter(doctor=self.kwargs['doctor_pk'])
-    
-   # def list(self, request,doctor_pk):
-        #serializer = docapptserializer(data=request.data)
-       # a=get_object_or_404(doctor,doctor_pk)
-       # print(a)
-        #if serializer.is_valid():
-         #   date=serializer['appt_date']['date']
-          #  serializer.save()
-       # return Response(a,self.get_object())
-        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class patapptViewset(viewsets.ModelViewSet):
     serializer_class=patapptserializer
     def get_queryset(self):

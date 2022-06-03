@@ -17,6 +17,7 @@ pat_homeappointment=routers.NestedSimpleRouter(router,r'patient',lookup='patient
 pat_homeappointment.register(r'homeappt',pathomeapptViewset,basename='patient-homeappointment')
 #home_appointment=
 urlpatterns = [
+    path(r'',index),
     path(r'', include(router.urls)),
     path(r'', include(availablity.urls)),
     path(r'',include(doc_appointment.urls)),
