@@ -1,3 +1,5 @@
+import datetime
+from django.utils import timezone
 from .models import *
 from rest_framework import serializers
 class patientserializer(serializers.ModelSerializer):

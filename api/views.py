@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from pydoc import doc
+from django.shortcuts import get_object_or_404, render
 from rest_framework import viewsets
-
+from rest_framework.response import Response
+from rest_framework import status
 from .models import *
 from .serializers import *
 # Create your views here.
+
 class doctorViewset(viewsets.ModelViewSet):
     serializer_class = doctorserializer
     queryset = doctor.objects.all()
@@ -18,6 +21,16 @@ class docapptViewset(viewsets.ModelViewSet):
     serializer_class=docapptserializer
     def get_queryset(self):
         return appointment.objects.filter(doctor=self.kwargs['doctor_pk'])
+    
+   # def list(self, request,doctor_pk):
+        #serializer = docapptserializer(data=request.data)
+       # a=get_object_or_404(doctor,doctor_pk)
+       # print(a)
+        #if serializer.is_valid():
+         #   date=serializer['appt_date']['date']
+          #  serializer.save()
+       # return Response(a,self.get_object())
+        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class patapptViewset(viewsets.ModelViewSet):
     serializer_class=patapptserializer
     def get_queryset(self):
