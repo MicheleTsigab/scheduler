@@ -1,18 +1,17 @@
 #import datetime
 #from django.utils.timezone import utc
 from django.db import models
-
+from django.contrib.gis.db import models
 #from django.contrib.auth.models import User
 # Create your models here.
 class patient(models.Model):
-    id=models.IntegerField(primary_key=True)
-    long = models.DecimalField(max_digits=16, decimal_places=6)
-    lat = models.DecimalField(max_digits=16, decimal_places=6)
+    id=models.CharField(primary_key=True,max_length=70)
+    #long = models.DecimalField(max_digits=16, decimal_places=6)
+    location = models.PointField()
     appt=models.ManyToManyField('doctor',through='appointment')
 class doctor(models.Model):
-    id=models.IntegerField(primary_key=True)
-    long = models.DecimalField(max_digits=16, decimal_places=6)
-    lat = models.DecimalField(max_digits=16, decimal_places=6)
+    id=models.CharField(primary_key=True,max_length=70)
+    location = models.PointField()
     availablity=models.ManyToManyField('date_time',through='doctor_ava')
     home_appt=models.ManyToManyField('patient',through='home_appointment')
 class doctor_ava(models.Model):

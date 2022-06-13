@@ -2,20 +2,23 @@ import datetime
 from django.utils import timezone
 from .models import *
 from rest_framework import serializers
-class patientserializer(serializers.ModelSerializer):
+from rest_framework_gis.serializers import GeoFeatureModelSerializer
+class patientserializer(GeoFeatureModelSerializer):
     class Meta:
         model=patient
-        fields='__all__'
+        fields=['id','location']
+        geo_field = 'location'
 class date_timeserializer(serializers.ModelSerializer):
     class Meta:
         model=date_time
         fields='__all__'
 
-class doctorserializer(serializers.ModelSerializer):
+class doctorserializer(GeoFeatureModelSerializer):
    # availablity=dateserializer()
     class Meta:
         model=doctor
-        fields=['id','long','lat']
+        fields=['id','location']
+        geo_field = 'location'
 class doctoravaserializer(serializers.ModelSerializer):
     date_time=date_timeserializer()
     class Meta:

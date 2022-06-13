@@ -15,6 +15,8 @@ doc_homeappointment=routers.NestedSimpleRouter(router,r'doctor',lookup='doctor')
 doc_homeappointment.register(r'homeappt',dochomeapptViewset,basename='doctor-homeappointment')
 pat_homeappointment=routers.NestedSimpleRouter(router,r'patient',lookup='patient')
 pat_homeappointment.register(r'homeappt',pathomeapptViewset,basename='patient-homeappointment')
+docr= routers.DefaultRouter()
+docr.register(r'doctor', doctorsWithinR,basename='doctorwithin')
 #home_appointment=
 urlpatterns = [
     path(r'',index),
@@ -24,7 +26,8 @@ urlpatterns = [
     path(r'',include(pat_appointment.urls)),
     path(r'',include(doc_homeappointment.urls)),
     path(r'',include(pat_homeappointment.urls)),
-    
+    path(r'',include(docr.urls))
+    #path('doctors/',doctorsWithinR.as_view({'get':'list'}))
 ]
 #urlpatterns += router.urls
 #urlpatte
