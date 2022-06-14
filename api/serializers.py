@@ -12,8 +12,8 @@ class patientserializer(GeoFeatureModelSerializer):
 class date_timeserializer(serializers.ModelSerializer):
     class Meta:
         model=date_time
-        fields='__all__'
-
+        #fields='__all__'
+        fields=['date','start_time','end_time']
 class doctorserializer(GeoFeatureModelSerializer):
    # availablity=dateserializer()
     class Meta:
@@ -24,7 +24,7 @@ class doctoravaserializer(WritableNestedModelSerializer,serializers.ModelSeriali
     date_time=date_timeserializer()
     class Meta:
         model=doctor_ava
-        fields=['doctor','date_time']
+        fields=['id','doctor','date_time']
     
     def create(self, validated_data):
         doctor_data=validated_data.get('doctor')
@@ -39,7 +39,7 @@ class apptserializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     
     class Meta:
         model=appointment
-        fields=['doctor','appt_date','status','patient']
+        fields=['id','doctor','appt_date','status','patient']
     def create(self, validated_data):
         doctor_data=validated_data.get('doctor')
         date_time_data = validated_data.pop('appt_date')
@@ -56,7 +56,7 @@ class homeapptserializer(WritableNestedModelSerializer,serializers.ModelSerializ
    # patient=patientserializer()
     class Meta:
         model=home_appointment
-        fields=['doctor','appt_date','status','patient']
+        fields=['id','doctor','appt_date','status','patient']
     def create(self, validated_data):
         doctor_data=validated_data.get('doctor')
         date_time_data = validated_data.pop('appt_date')

@@ -15,6 +15,7 @@ import datetime
 def index(request):
     now = datetime.datetime.now()
     html = "<html><body><h1>Links</h1><ul><li><a href='http://127.0.0.1:8000/admin'>/admin/</a><ul><li>username: michele password: 1234</li></ul></li><h2>Api Links</h2><li><a href='http://127.0.0.1:8000/doctor'>/doctor/</a></li><li>/doctor/{id}/availablity</li><li>/doctor/{id}/homeappt</li><li>/patient/{id}/homeappt</li><li>/doctor/{id}/appt</li><li>/patient/{id}/appt</li></ul></body></html>"
+    html+="<h1>For full Documentation<h1> <a href='https://documenter.getpostman.com/view/19708900/UzBgvVM5'>Click here</a>"
     return HttpResponse(html)
 class doctorViewset(viewsets.ModelViewSet):
     serializer_class = doctorserializer
