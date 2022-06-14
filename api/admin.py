@@ -9,5 +9,8 @@ admin.site.register(appointment)
 admin.site.register(home_appointment)
 admin.site.register(doctor_ava)
 @admin.register(doctor)
-class ShopAdmin(OSMGeoAdmin):
+class docadmin(OSMGeoAdmin):
+    list_display = ('id', 'location')
+@admin.register(patient)
+class patadmin(OSMGeoAdmin):
     list_display = ('id', 'location')

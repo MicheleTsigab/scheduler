@@ -26,8 +26,8 @@ urlpatterns = [
     path(r'',include(pat_appointment.urls)),
     path(r'',include(doc_homeappointment.urls)),
     path(r'',include(pat_homeappointment.urls)),
-    path(r'',include(docr.urls))
-    #path('doctors/',doctorsWithinR.as_view({'get':'list'}))
+    #path(r'',include(docr.urls))
+    path('doctors/',doctorsWithinR.as_view({'get':'list'}))
 ]
 #urlpatterns += router.urls
 #urlpatte

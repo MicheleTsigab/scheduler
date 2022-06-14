@@ -1,6 +1,7 @@
 from pydoc import doc
 from rest_framework import generics
 from django.shortcuts import get_object_or_404, render
+from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import Distance
 from rest_framework import viewsets
@@ -26,21 +27,21 @@ class availablityViewset(viewsets.ModelViewSet):
     def get_queryset(self):
         return doctor_ava.objects.filter(doctor=self.kwargs['doctor_pk'])
 class docapptViewset(viewsets.ModelViewSet):
-    serializer_class=docapptserializer
+    serializer_class=apptserializer
     def get_queryset(self):
         return appointment.objects.filter(doctor=self.kwargs['doctor_pk'])
 class patapptViewset(viewsets.ModelViewSet):
-    serializer_class=patapptserializer
+    serializer_class=apptserializer
     def get_queryset(self):
         return appointment.objects.filter(patient=self.kwargs['patient_pk'])
 class dochomeapptViewset(viewsets.ModelViewSet):
-    serializer_class=dochomeapptserializer
+    serializer_class=homeapptserializer
     def get_queryset(self):
         return home_appointment.objects.filter(doctor=self.kwargs['doctor_pk'])
 class pathomeapptViewset(viewsets.ModelViewSet):
-    serializer_class=pathomeapptserializer
+    serializer_class=homeapptserializer
     def get_queryset(self):
-        return home_appointment.objects.filter(doctor=self.kwargs['doctor_pk'])
+        return home_appointment.objects.filter(patient=self.kwargs['patient_pk'])
 class doctorsWithinR(viewsets.ReadOnlyModelViewSet):
     serializer_class = doctorserializer
    
@@ -48,9 +49,8 @@ class doctorsWithinR(viewsets.ReadOnlyModelViewSet):
         longitude = self.request.query_params.get('long')
         latitude= self.request.query_params.get('lat')
         radius = self.request.query_params.get('km')
-        location = Point((float(latitude),float(longitude)),srid=4326)
-
-        queryset = doctor.objects.filter(location__distance_lt=(location, Distance(m=radius)))
+        location = Point(float(latitude),float(longitude))
+        queryset = doctor.objects.filter(location__distance_lt=(location, Distance(km=radius)))
         return queryset
 
 
