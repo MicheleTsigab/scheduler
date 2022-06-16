@@ -12,6 +12,7 @@ class patient(models.Model):
 class doctor(models.Model):
     id=models.CharField(primary_key=True,max_length=70)
     location = models.PointField()
+    is_home_doctor=models.BooleanField(default=False)
     #availablity=models.ManyToManyField('date_time',through='doctor_ava')
     home_appt=models.ManyToManyField('patient',through='home_appointment')
 class doctor_ava(models.Model):

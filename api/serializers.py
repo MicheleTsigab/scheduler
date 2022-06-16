@@ -22,7 +22,7 @@ class doctorserializer(GeoFeatureModelSerializer):
    # availablity=dateserializer()
     class Meta:
         model=doctor
-        fields=['id','location']
+        fields=['id','location','is_home_doctor']
         geo_field = 'location'
 class doctoravaserializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     #date_time=date_timeserializer()

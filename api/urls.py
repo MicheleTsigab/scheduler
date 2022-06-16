@@ -19,6 +19,7 @@ docr= routers.DefaultRouter()
 docr.register(r'doctor', doctorsWithinR,basename='doctorwithin')
 #home_appointment=
 urlpatterns = [
+    path('doctor/',setIs_home),
     path(r'',index),
     path(r'', include(router.urls)),
     path(r'', include(availablity.urls)),
@@ -27,7 +28,8 @@ urlpatterns = [
     path(r'',include(doc_homeappointment.urls)),
     path(r'',include(pat_homeappointment.urls)),
     #path(r'',include(docr.urls))
-    path('doctors/',doctorsWithinR.as_view({'get':'list'}))
+    path('doctors/',doctorsWithinR.as_view({'get':'list'})),
+    
 ]
 #urlpatterns += router.urls
 #urlpatte
