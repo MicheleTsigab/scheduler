@@ -1,5 +1,5 @@
+__pycache__/
 api/__pycache__/models.cpython-38.pyc
-
 api/__pycache__/urls.cpython-38.pyc
 api/__pycache__/views.cpython-38.pyc
 api/__pycache__/serializers.cpython-38.pyc
