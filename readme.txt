@@ -1,6 +1,6 @@
 Steps to run the django app
-1.go to https://github.com/MicheleTsigab/scheduler and clone it 
-2. install python
+1.clone it 
+2. install python and set up virtual env
 3. go to the project folder and run the below command
 pip install requirements.txt
 python manage.py makemigrations
