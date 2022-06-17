@@ -43,7 +43,7 @@ class apptserializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     
     class Meta:
         model=appointment
-        fields=['id','doctor','appt_date','status','patient']
+        fields=['id','doctor','appt_date','patient']
     def create(self, validated_data):
         doctor_data=validated_data.get('doctor')
         date_time_data = validated_data.pop('appt_date')
@@ -66,15 +66,7 @@ class apptserializer(WritableNestedModelSerializer,serializers.ModelSerializer):
         
         else:
             appt= appointment.objects.create(doctor=doc, patient=pat, appt_date=da,status=status_data)
-           
-            
-        #try:
-         #   appointment.objects.get()
-        #If there is already an appointment
-        # if appt:
-        #     raise serializers.ValidationError({"detail": "There is already an appointment set at that hour"})
-        # else:
-        #     appt= appointment.objects.create(doctor=doc, appt_date=da,patient=pat,status=status_data)
+ 
         return appt
 
 class homeapptserializer(WritableNestedModelSerializer,serializers.ModelSerializer):
@@ -83,13 +75,13 @@ class homeapptserializer(WritableNestedModelSerializer,serializers.ModelSerializ
     class Meta:
         model=home_appointment
         fields=['id','doctor','appt_date','status','patient']
-    def create(self, validated_data):
-        doctor_data=validated_data.get('doctor')
-        date_time_data = validated_data.pop('appt_date')
-        patient_data=validated_data.get('patient')
-        status_data=validated_data.get('status')
-        pat= get_object_or_404(patient, pk=patient_data.id)
-        doc = get_object_or_404(doctor, pk=doctor_data.id)
-        da=date_time.objects.create(**date_time_data)
-        appt= home_appointment.objects.create(doctor=doc, appt_date=da,patient=pat,status=status_data)
-        return appt
+    # def create(self, validated_data):
+    #     doctor_data=validated_data.get('doctor')
+    #     date_time_data = validated_data.pop('appt_date')
+    #     patient_data=validated_data.get('patient')
+    #     status_data=validated_data.get('status')
+    #     pat= get_object_or_404(patient, pk=patient_data.id)
+    #     doc = get_object_or_404(doctor, pk=doctor_data.id)
+    #     da=date_time.objects.create(**date_time_data)
+    #     appt= home_appointment.objects.create(doctor=doc, appt_date=da,patient=pat,status=status_data)
+    #     return appt
