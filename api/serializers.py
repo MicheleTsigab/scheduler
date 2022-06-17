@@ -70,11 +70,11 @@ class apptserializer(WritableNestedModelSerializer,serializers.ModelSerializer):
         return appt
 
 class homeapptserializer(WritableNestedModelSerializer,serializers.ModelSerializer):
-    appt_date=date_timeserializer()
+    #appt_date=date_timeserializer()
    # patient=patientserializer()
     class Meta:
         model=home_appointment
-        fields=['id','doctor','appt_date','status','patient']
+        fields='__all__'
     # def create(self, validated_data):
     #     doctor_data=validated_data.get('doctor')
     #     date_time_data = validated_data.pop('appt_date')

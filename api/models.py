@@ -42,8 +42,8 @@ class appointment(models.Model):
     patient=models.ForeignKey(patient,on_delete=models.CASCADE)
 class home_appointment(models.Model):
     doctor=models.ForeignKey(doctor,on_delete=models.CASCADE)
-    appt_date=models.ForeignKey(date_time,on_delete=models.CASCADE)
-    status=models.CharField(max_length=50,null=True)
+    appt_date=models.DateTimeField()
+    status=models.CharField(max_length=50,default="Requested")
     patient=models.ForeignKey(patient,on_delete=models.CASCADE)
 
     
