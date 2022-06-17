@@ -40,13 +40,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_gis',
     'api.apps.ApiConfig',
-    'django.contrib.gis'
+    'django.contrib.gis',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
