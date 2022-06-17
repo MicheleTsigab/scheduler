@@ -1,3 +1,4 @@
+from unittest.util import _MAX_LENGTH
 from rest_framework import status
 from calendar import day_abbr
 import datetime
@@ -8,11 +9,11 @@ from .models import *
 from rest_framework import serializers
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from drf_writable_nested.serializers import WritableNestedModelSerializer
-class patientserializer(GeoFeatureModelSerializer):
+class patientserializer(serializers.ModelSerializer):
     class Meta:
         model=patient
-        fields=['id','location']
-        geo_field = 'location'
+        fields=['id']
+        #geo_field = 'location'
 class date_timeserializer(serializers.ModelSerializer):
     class Meta:
         model=date_time
@@ -40,16 +41,17 @@ class doctoravaserializer(WritableNestedModelSerializer,serializers.ModelSeriali
 
 class apptserializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     appt_date=date_timeserializer()
-    
+    #temp=serializers.
     class Meta:
         model=appointment
-        fields=['id','doctor','appt_date','patient']
+        fields=['id','doctor','appt_date','temp']
+        
     def create(self, validated_data):
         doctor_data=validated_data.get('doctor')
         date_time_data = validated_data.pop('appt_date')
-        patient_data=validated_data.get('patient')
+        patient_data=validated_data.get('temp')
         status_data=validated_data.get('status')
-        pat= get_object_or_404(patient, pk=patient_data.id)
+        pat,sd= patient.objects.get_or_create(id=patient_data)
         doc = get_object_or_404(doctor, pk=doctor_data.id)
         da,created=date_time.objects.get_or_create(**date_time_data)
         print(da)
@@ -71,17 +73,23 @@ class apptserializer(WritableNestedModelSerializer,serializers.ModelSerializer):
 
 class homeapptserializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     #appt_date=date_timeserializer()
-   # patient=patientserializer()
+    #patient=patientserializer()
     class Meta:
         model=home_appointment
-        fields='__all__'
-    # def create(self, validated_data):
-    #     doctor_data=validated_data.get('doctor')
-    #     date_time_data = validated_data.pop('appt_date')
-    #     patient_data=validated_data.get('patient')
-    #     status_data=validated_data.get('status')
-    #     pat= get_object_or_404(patient, pk=patient_data.id)
-    #     doc = get_object_or_404(doctor, pk=doctor_data.id)
+        fields=['doctor','appt_date','temp','status']
+    def create(self, validated_data):
+         doctor_data=validated_data.get('doctor')
+         date_time_data = validated_data.pop('appt_date')
+         patient_data=validated_data.get('temp')
+         status_data=validated_data.get('status')
+         try:
+            pat = patient.objects.get(id=patient_data)
+         except patient.DoesNotExist:
+            pat = patient.objects.create(id=patient_data)
+            #pat.save()
+         #pat,p= patient.objects.get_or_create(**patient_data)
+         print("hello")
+         doc = get_object_or_404(doctor, pk=doctor_data.id)
     #     da=date_time.objects.create(**date_time_data)
-    #     appt= home_appointment.objects.create(doctor=doc, appt_date=da,patient=pat,status=status_data)
-    #     return appt
+         appt= home_appointment.objects.create(doctor=doc, appt_date=date_time_data,patient=pat,status=status_data)
+         return appt

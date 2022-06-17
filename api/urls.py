@@ -19,7 +19,7 @@ docr= routers.DefaultRouter()
 docr.register(r'doctor', doctorsWithinR,basename='doctorwithin')
 #home_appointment=
 urlpatterns = [
-    path('doctor/home',setIs_home),
+    path('doctor/home/',setIs_home),
     path(r'',index),
     path(r'', include(router.urls)),
     path(r'', include(availablity.urls)),
