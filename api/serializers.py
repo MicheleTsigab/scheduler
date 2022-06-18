@@ -91,5 +91,5 @@ class homeapptserializer(WritableNestedModelSerializer,serializers.ModelSerializ
          print("hello")
          doc = get_object_or_404(doctor, pk=doctor_data.id)
     #     da=date_time.objects.create(**date_time_data)
-         appt= home_appointment.objects.create(doctor=doc, appt_date=date_time_data,patient=pat,status=status_data)
+         appt= home_appointment.objects.create(doctor=doc, appt_date=date_time_data,patient=pat,temp=patient_data,status=status_data)
          return appt

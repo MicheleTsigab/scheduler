@@ -5,3 +5,4 @@ api/__pycache__/views.cpython-38.pyc
 api/__pycache__/serializers.cpython-38.pyc
 db.sqlite3
 scheduler/__pycache__/settings.cpython-38.pyc
+api/migrations/
