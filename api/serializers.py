@@ -82,6 +82,8 @@ class homeapptserializer(WritableNestedModelSerializer,serializers.ModelSerializ
          date_time_data = validated_data.pop('appt_date')
          patient_data=validated_data.get('temp')
          status_data=validated_data.get('status')
+         if status_data is None:
+            status_data="Requested"
          try:
             pat = patient.objects.get(id=patient_data)
          except patient.DoesNotExist:
