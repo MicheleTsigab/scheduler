@@ -76,7 +76,7 @@ class homeapptserializer(WritableNestedModelSerializer,serializers.ModelSerializ
     #patient=patientserializer()
     class Meta:
         model=home_appointment
-        fields=['doctor','appt_date','temp','status']
+        fields=['id','doctor','appt_date','temp','status']
     def create(self, validated_data):
          doctor_data=validated_data.get('doctor')
          date_time_data = validated_data.pop('appt_date')
