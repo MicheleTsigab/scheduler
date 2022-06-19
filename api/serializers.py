@@ -54,20 +54,21 @@ class apptserializer(WritableNestedModelSerializer,serializers.ModelSerializer):
         pat,sd= patient.objects.get_or_create(id=patient_data)
         doc = get_object_or_404(doctor, pk=doctor_data.id)
         da,created=date_time.objects.get_or_create(**date_time_data)
-        print(da)
+        
+        #print(da)
         available=doctor_ava.objects.filter(days=(da.date.weekday()+1),start_time__lte=da.start_time,end_time__gte=da.end_time)
         if available:
             print("hello")
             #da.save()
         else:
             raise serializers.ValidationError({"detail":"No available working hour"})    
-        if appointment.objects.filter(doctor=doc,appt_date=da,status=status_data):
+        if appointment.objects.filter(doctor=doc,appt_date=da):
             res=serializers.ValidationError({"detail":"The Date " +str(da.date)+" "+str(da.start_time)+" to "+str(da.end_time) +" is already booked, Try other appointment dates"})
             res.status_code=status.HTTP_409_CONFLICT
             raise res 
         
         else:
-            appt= appointment.objects.create(doctor=doc, patient=pat, appt_date=da,status=status_data)
+            appt= appointment.objects.create(doctor=doc, patient=pat, appt_date=da,status=status_data,temp=patient_data)
  
         return appt
 
